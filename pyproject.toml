@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "devtoolkit"
+version = "0.1.0"
+description = "Small dependency-free helpers for everyday developer scripting."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Karan Dhaodiyal", email = "karandhaodiyal28-hash@users.noreply.github.com" }]
+keywords = ["utils", "cli", "developer-tools"]
+
+[project.urls]
+Homepage = "https://github.com/karandhaodiyal28-hash/devtoolkit"
+Repository = "https://github.com/karandhaodiyal28-hash/devtoolkit"
+
+[tool.setuptools.packages.find]
+where = ["src"]
