@@ -9,6 +9,15 @@ project.
 pip install -e .
 ```
 
+## Usage
+
+```python
+from devtoolkit import slugify, truncate
+
+slugify("Hello World!")             # -> "hello-world"
+truncate("a very long sentence", 10) # -> "a very..."
+```
+
 ## Development
 
 ```bash
