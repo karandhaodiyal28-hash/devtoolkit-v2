@@ -1,0 +1,56 @@
+name: Co-author smoke PR
+
+# Opens a small pull request from the GitHub Actions bot with the repo owner
+# listed as a co-author. It exists to prove the co-author plumbing end to end:
+# the bot authors the commit, Karan co-authors it, and the PR is merged by the
+# maintainer without a review request.
+
+on:
+  workflow_dispatch:
+    inputs:
+      note:
+        description: "Note to add to the co-author smoke test file"
+        required: false
+        default: "co-author plumbing check"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  coauthor-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create the co-authored branch, commit and pull request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NOTE: ${{ inputs.note }}
+          CO_AUTHOR_NAME: "Karan Dhaodiyal"
+          CO_AUTHOR_EMAIL: "256503836+karandhaodiyal28-hash@users.noreply.github.com"
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b feature/co-author-smoke-pr
+          printf '%s\n' "${NOTE}" > CO_AUTHOR_SMOKE.md
+          git add CO_AUTHOR_SMOKE.md
+          git commit \
+            -m "docs: add co-author smoke test note" \
+            -m "Opened by the GitHub Actions bot to exercise the co-author plumbing.
+
+          Co-authored-by: ${CO_AUTHOR_NAME} <${CO_AUTHOR_EMAIL}>"
+          git push origin feature/co-author-smoke-pr
+
+          gh pr create \
+            --title "docs: add co-author smoke test note" \
+            --body "Automated smoke test for the co-author plumbing.
+
+          The commit on this branch is authored by \`github-actions[bot]\` and co-authored by the repository owner.
+
+          Co-authored-by: ${CO_AUTHOR_NAME} <${CO_AUTHOR_EMAIL}>" \
+            --head feature/co-author-smoke-pr \
+            --base main
