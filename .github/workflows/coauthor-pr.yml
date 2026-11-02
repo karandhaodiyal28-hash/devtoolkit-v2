@@ -53,4 +53,15 @@ jobs:
 
           Co-authored-by: ${CO_AUTHOR_NAME} <${CO_AUTHOR_EMAIL}>" \
             --head feature/co-author-smoke-pr \
-            --base main
+            --base main || {
+              # The GraphQL createPullRequest mutation is not available to the
+              # Actions bot, so fall back to the REST endpoint.
+              echo "GraphQL createPullRequest unavailable, using REST endpoint"
+              curl -sS --fail-with-body \
+                -X POST \
+                -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+                -H "Accept: application/vnd.github+json" \
+                -H "X-GitHub-Api-Version: 2022-11-28" \
+                "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls" \
+                -d "{\"title\":\"docs: add co-author smoke test note\",\"head\":\"feature/co-author-smoke-pr\",\"base\":\"main\",\"body\":\"Automated smoke test for the co-author plumbing.\\n\\nThe commit on this branch is authored by github-actions[bot] and co-authored by the repository owner.\\n\\nCo-authored-by: ${CO_AUTHOR_NAME} <${CO_AUTHOR_EMAIL}>\"}"
+            }
