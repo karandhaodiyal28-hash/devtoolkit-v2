@@ -1,13 +1,27 @@
 """devtoolkit - small dependency-free helpers for everyday developer scripting."""
 
-__version__ = "0.2.0"
-__all__ = ["__version__", "slugify", "truncate", "chunk_list", "chunked"]
+__version__ = "0.3.0"
+__all__ = [
+    "__version__",
+    "slugify",
+    "truncate",
+    "chunk_list",
+    "chunked",
+    "get_env",
+    "get_bool_env",
+    "get_int_env",
+    "get_float_env",
+]
 
 _LAZY = {
     "slugify": "devtoolkit.text",
     "truncate": "devtoolkit.text",
     "chunk_list": "devtoolkit.collections",
     "chunked": "devtoolkit.collections",
+    "get_env": "devtoolkit.env",
+    "get_bool_env": "devtoolkit.env",
+    "get_int_env": "devtoolkit.env",
+    "get_float_env": "devtoolkit.env",
 }
 
 
