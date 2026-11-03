@@ -33,6 +33,7 @@ checksum(b"abc")                    # -> sha256 hex digest
 devtoolkit slugify "Hello World!"        # hello-world
 devtoolkit truncate "a very long..." -l 10 # a very...
 devtoolkit chunk 5 2                      # 0 1 / 2 3 / 4
+devtoolkit hash dist/devtoolkit-0.4.0.whl # ba7816bf...
 ```
 
 ## Development
