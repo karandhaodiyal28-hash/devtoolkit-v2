@@ -1,0 +1,23 @@
+name: Feature request
+description: Suggest a helper or an improvement
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the problem rather than the solution.
+      placeholder: I keep rewriting the same batching logic in every script.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would the helper look like?
+      description: A short sketch of the API is enough.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
