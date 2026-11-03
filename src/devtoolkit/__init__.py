@@ -1,6 +1,6 @@
 """devtoolkit - small dependency-free helpers for everyday developer scripting."""
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 __all__ = [
     "__version__",
     "slugify",
@@ -11,6 +11,9 @@ __all__ = [
     "get_bool_env",
     "get_int_env",
     "get_float_env",
+    "checksum",
+    "sha256_bytes",
+    "file_checksum",
 ]
 
 _LAZY = {
@@ -22,6 +25,9 @@ _LAZY = {
     "get_bool_env": "devtoolkit.env",
     "get_int_env": "devtoolkit.env",
     "get_float_env": "devtoolkit.env",
+    "checksum": "devtoolkit.hashing",
+    "sha256_bytes": "devtoolkit.hashing",
+    "file_checksum": "devtoolkit.hashing",
 }
 
 
