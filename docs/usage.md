@@ -75,6 +75,21 @@ get_int_env("WORKERS")         # int, raises ValueError on garbage
 get_float_env("TIMEOUT", 2.5)  # float, raises ValueError on garbage
 ```
 
+## Checksum helpers
+
+### `checksum(data, algorithm="sha256")` and `file_checksum(path, algorithm="sha256")`
+
+```python
+from devtoolkit import checksum, file_checksum
+
+checksum(b"abc")            # sha256 digest of the bytes
+checksum(b"abc", "md5")     # md5 digest
+file_checksum("dist/app.whl")
+```
+
+`file_checksum` reads the file in 64 KiB chunks, so verifying a large artefact
+does not need it in memory.
+
 ## Command line
 
 ```bash
@@ -82,6 +97,7 @@ devtoolkit --version
 devtoolkit slugify "Hello World!"
 devtoolkit truncate "a very long sentence" -l 10
 devtoolkit chunk 5 2
+devtoolkit hash dist/devtoolkit-0.4.0.whl
 ```
 
 The CLI mirrors the library one to one, so anything you can do in Python you

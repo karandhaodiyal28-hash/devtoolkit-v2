@@ -8,6 +8,7 @@ from collections.abc import Sequence
 
 from . import __version__
 from .collections import chunk_list
+from .hashing import file_checksum
 from .text import slugify, truncate
 
 __all__ = ["main", "build_parser"]
@@ -40,6 +41,10 @@ def build_parser() -> argparse.ArgumentParser:
     chunk_cmd.add_argument("count", type=int, help="Number of items.")
     chunk_cmd.add_argument("size", type=int, help="Chunk size.")
 
+    hash_cmd = sub.add_parser("hash", help="Print the checksum of a file.")
+    hash_cmd.add_argument("path", help="File to hash.")
+    hash_cmd.add_argument("-a", "--algorithm", default="sha256", help="Algorithm (default: sha256).")
+
     return parser
 
 
@@ -58,6 +63,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "chunk":
         for chunk in chunk_list(range(args.count), args.size):
             print(" ".join(str(item) for item in chunk))
+        return 0
+
+    if args.command == "hash":
+        try:
+            print(file_checksum(args.path, algorithm=args.algorithm))
+        except (FileNotFoundError, ValueError) as exc:
+            parser.exit(1, f"devtoolkit: {exc}\n")
         return 0
 
     parser.error(f"unknown command: {args.command}")
