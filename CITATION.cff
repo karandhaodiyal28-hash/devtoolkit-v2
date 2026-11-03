@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "devtoolkit"
+abstract: "Small, dependency-free helpers for everyday developer scripting."
+version: 0.3.0
+license: MIT
+type: software
+repository-code: "https://github.com/karandhaodiyal28-hash/devtoolkit"
+authors:
+  - family-names: Dhaodiyal
+    given-names: Karan
