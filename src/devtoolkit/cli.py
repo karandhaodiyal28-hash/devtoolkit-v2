@@ -6,6 +6,7 @@ import argparse
 import sys
 from collections.abc import Sequence
 
+from . import __version__
 from .collections import chunk_list
 from .text import slugify, truncate
 
@@ -16,6 +17,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="devtoolkit",
         description="Small helpers for everyday developer scripting.",
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"devtoolkit {__version__}",
+        help="Show the installed version and exit.",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
